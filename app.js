@@ -6,9 +6,15 @@ const app = express();
 // We'll add 'middleware' code here soon
 // set the 'public' folder as the location for our static files:
 app.use(express.static('public'));
+
+// specify that we are using 'ejs' templates in our app:
+app.set('view engine', 'ejs');
+
 // ROUTES
-app.get('/', (req, res) => {
-   res.send('<h1>Hello World from Express!</h1>');
+app.get('/signup', (req, res) => {
+  res.render('signup-layout', {
+     title: "Sign Up"
+  });
 });
 
 app.get('/some-route', (req, res) => {
@@ -18,6 +24,13 @@ app.get('/some-route', (req, res) => {
 app.get("/dynamic-page.html", (req, res) => {
    const currentTime = new Date();
    res.send(`<h1>The current time is ${currentTime.toString()}</h1>`);
+});
+
+app.get('/', (req, res) => {
+  res.render('default-layout', {
+     title: "My Home Page",
+     content: "<h1>Hello World from Express!</h1>"
+  });
 });
 
 // START THE SERVER
