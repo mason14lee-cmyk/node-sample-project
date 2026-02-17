@@ -1,11 +1,15 @@
 // IMPORTS
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
 // MIDDLEWARE
-// We'll add 'middleware' code here soon
+
 // set the 'public' folder as the location for our static files:
 app.use(express.static('public'));
+
+// allow the app to receive data from form submits
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // specify that we are using 'ejs' templates in our app:
 app.set('view engine', 'ejs');
@@ -31,6 +35,10 @@ app.get('/', (req, res) => {
      title: "My Home Page",
      content: "<h1>Hello World from Express!</h1>"
   });
+});
+
+app.post('/signup-confirmation', (req, res) => {
+  res.send("Form data received: " + JSON.stringify(req.body));
 });
 
 // START THE SERVER
